@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         readItems();
         itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-        lvItems = (ListView) findViewById(R.id.LVitems);
+        lvItems = findViewById(R.id.LVitems);
         lvItems.setAdapter(itemsAdapter);
 
         // mock data
@@ -47,12 +49,14 @@ public class MainActivity extends AppCompatActivity
 
     public void onAddItem(View v)
     {
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+        EditText etNewItem = findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
         Toast.makeText(getApplicationContext(), "Item added to list", Toast.LENGTH_SHORT).show();
+
+
     }
 
     private void setupListViewListener()
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity
                 items.remove(position);
                 itemsAdapter.notifyDataSetChanged();
                 writeItems();
+                Toast.makeText(getApplicationContext(), "Item removed", Toast.LENGTH_SHORT).show();
 
                 return true;
             }
@@ -102,4 +107,6 @@ public class MainActivity extends AppCompatActivity
             Log.e("MainActivity", "Error writing file", e);
         }
     }
+
+
 }
